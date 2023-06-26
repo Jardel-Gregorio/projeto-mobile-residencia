@@ -4,7 +4,7 @@ import {
 } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function PropertyCard({ data, ...rest }) {
+export default function PropertyCard({ data }) {
   const { colors } = useTheme();
   const {
     status, bem, descricao, adquiridoEm,
@@ -13,7 +13,7 @@ export default function PropertyCard({ data, ...rest }) {
   const statusColor = (status === 'Pendente' ? colors.secondary[700] : colors.green[300]);
 
   return (
-    <Pressable {...rest}>
+    <Pressable>
       <HStack
         bg="gray.600"
         mb={4}
