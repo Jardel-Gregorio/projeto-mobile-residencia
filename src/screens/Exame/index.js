@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Feather } from '@expo/vector-icons';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
 import {
   FlatList,
   StyleSheet,
@@ -20,7 +20,14 @@ const styles = StyleSheet.create({
   },
 
   containerTop: {
-    maxWidth: '100%',
+    width: '100%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  containerSearch: {
+    width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -79,17 +86,23 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 
-  chevron: {
-    flex: 1,
-    color: '#003399',
-    marginLeft: 8,
+  plus: {
+    paddingTop: 8,
+    paddingHorizontal: 16,
+    color: 'mediumseagreen',
   },
+
+  chevron: {
+    color: '#003399',
+  },
+
 });
 
 export default function Exame({ navigation }) {
   const [todosExames, setTodosExames] = useState([]);
   const [exames, setExames] = useState([]);
   const [nome, setNome] = useState('');
+  const [atualizaExames, setAtualizaExames] = useState(true);
 
   useEffect(() => {
     async function carregaExames() {
@@ -100,7 +113,7 @@ export default function Exame({ navigation }) {
       }
     }
     carregaExames();
-  }, []);
+  }, [atualizaExames]);
 
   async function procuraExames(e) {
     e.preventDefault();
@@ -111,7 +124,7 @@ export default function Exame({ navigation }) {
   }
 
   function irParaDetalhes(exame) {
-    navigation.navigate('detalheExame', { exame });
+    navigation.navigate('detalheExame', { exame, setAtualizaExames });
   }
 
   return (
@@ -119,17 +132,23 @@ export default function Exame({ navigation }) {
       <Header nome="Menu de exames" />
       <View style={styles.container}>
         <View style={styles.containerTop}>
-          <Feather style={styles.icon} name="search" size={24} />
-          <TextInput
-            style={styles.input}
-            autoCapitalize="characters"
-            autoCompleteType="off"
-            autoCorrect={false}
-            placeholder="Pesquise pelo nome do exame"
-            onChange={() => procuraExames()}
-            value={nome}
-          />
+          <View style={styles.containerSearch}>
+            <Feather style={styles.icon} name="search" size={24} />
+            <TextInput
+              style={styles.input}
+              autoCapitalize="characters"
+              autoCompleteType="off"
+              autoCorrect={false}
+              placeholder="Pesquise pelo nome do exame"
+              onChange={() => procuraExames()}
+              value={nome}
+            />
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate('novoExame', { setAtualizaExames })}>
+            <FontAwesome5 style={styles.plus} name="plus-circle" size={32} />
+          </TouchableOpacity>
         </View>
+
         <View style={styles.containerList}>
           <FlatList
             data={exames}

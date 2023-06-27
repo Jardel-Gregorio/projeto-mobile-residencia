@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  View, Text, TouchableOpacity, Linking, StyleSheet,
+  View, Text, TouchableOpacity, Linking, StyleSheet, Alert,
 } from 'react-native';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 
 import Header from '../../components/Header';
+import api from '../../services/api';
 
 // import AbriMapa from '../../utils/AbriMapa';
 
@@ -63,13 +64,26 @@ const styles = StyleSheet.create({
     color: '#fff',
     paddingVertical: 5,
   },
+  apagar: {
+    fontSize: 16,
+    color: 'tomato',
+    textAlign: 'center',
+    marginTop: 300,
+  },
 });
 
-export default function DetalhaUnidade({ route }) {
-  const { unidade } = route.params;
+export default function DetalhaUnidade({ navigation, route }) {
+  const { unidade, setAtualizaUnidades } = route.params;
 
   function ligar() {
     Linking.openURL(`tel:+5584${unidade.telefone}`);
+  }
+
+  async function apagaUnidade() {
+    await api.delete(`/api/unidade/${unidade.id}`);
+    setAtualizaUnidades((state) => !state);
+    navigation.navigate('unidade');
+    return Alert.alert('AVISO', 'Unidade apagada.');
   }
 
   return (
@@ -109,6 +123,11 @@ export default function DetalhaUnidade({ route }) {
           <FontAwesome style={styles.icon} name="crosshairs" size={30} />
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        onPress={() => apagaUnidade()}
+      >
+        <Text style={styles.apagar}>Apagar unidade</Text>
+      </TouchableOpacity>
     </View>
   );
 }
