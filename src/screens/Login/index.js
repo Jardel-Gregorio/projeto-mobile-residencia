@@ -10,7 +10,7 @@ import Title from '../../components/Tittle';
 
 import { useAuth } from '../../Hooks/useAuth';
 
-export default function Login() {
+export default function Login({ navigation }) {
   const { login } = useAuth();
 
   const [usuario, setUsuario] = useState('');
@@ -24,7 +24,7 @@ export default function Login() {
     const user = await login(usuario, senha);
 
     if (user) {
-      return user;
+      return navigation.navigate('inicial', { user });
     }
 
     return Alert.alert('ENTRAR', 'Usuário ou senha inválidos.');
