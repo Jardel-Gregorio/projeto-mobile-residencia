@@ -1,35 +1,22 @@
-import { NativeBaseProvider, StatusBar } from "native-base";
-import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import { View } from 'react-native';
 
-import { THEME } from './src/styles/theme';
+import { AuthProvider } from './src/Hooks/useAuth';
 
-import { AuthProvider } from "./src/Hooks/useAuth";
-
-import { Routes } from './src/routes';
-import { Login } from './src/screens/Login';
-
-import { Loading } from './src/components/Loading';
+import Routes from './src/routes';
 
 export default function App() {
-  const [ fonteCarregada ] = useFonts({ Roboto_400Regular, Roboto_700Bold })
-  
   return (
-    <NativeBaseProvider theme={THEME}>
-      <StatusBar 
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      { fonteCarregada 
-        ? (
-          <AuthProvider>
-            <Routes />
-          </AuthProvider>
-          )
-        : <Loading />
-      }
-    </NativeBaseProvider>
+    <SafeAreaView>
+      <View style={{ height: '100%' }}>
+        <StatusBar style="auto" />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </View>
+    </SafeAreaView>
+
   );
 }
-
-

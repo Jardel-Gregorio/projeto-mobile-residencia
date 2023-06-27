@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
   async function login(usuario, senha) {
     setLoading(true);
     try {
-      const user = await api.post('/api/login/', {
+      const { data: user } = await api.post('/api/login/', {
         login: usuario,
         senha,
       });

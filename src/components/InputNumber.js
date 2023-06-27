@@ -2,14 +2,14 @@ import React from 'react';
 import {
   StyleSheet, TextInput, Text, View,
 } from 'react-native';
+import apenasNumero from '../utils/apenasNumero';
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    flex: 1,
   },
   text: {
     color: 'white',
-    padding: 2,
   },
   input: {
     backgroundColor: 'lightgray',
@@ -19,24 +19,25 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Input(props) {
+export default function InputNumber(props) {
   const {
-    password,
+    edit,
     title,
     placeholder,
-    text,
-    setText,
+    numero,
+    setNumero,
   } = props;
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
       <TextInput
-        secureTextEntry={password}
+        editable={edit}
+        keyboardType="numeric"
         style={styles.input}
         placeholder={placeholder}
-        value={text}
-        onChangeText={(e) => setText(e)}
+        value={numero}
+        onChangeText={(e) => setNumero(apenasNumero(e))}
       />
     </View>
   );

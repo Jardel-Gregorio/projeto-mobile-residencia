@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-import { API_URL } from 'react-native-dotenv';
-
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: 'http://192.168.31.136:3333',
 });
 
 export default api;
