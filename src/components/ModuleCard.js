@@ -1,5 +1,5 @@
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -30,7 +30,7 @@ export default function ModuleCard({ nome, rota, icon }) {
 
   return (
     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(rota)}>
-      <FontAwesome style={styles.iconHeader} name={icon} size={30} />
+      <FontAwesome5 style={styles.iconHeader} name={icon} size={30} />
       <Text style={styles.text}>
         {nome}
       </Text>

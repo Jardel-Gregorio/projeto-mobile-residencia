@@ -23,11 +23,11 @@ export default function Inicial() {
           {`Olá, ${login}`}
         </Text>
         <ContainerDouble>
-          <ModuleCard nome="Exame" rota="exame" icon="flask" />
-          <ModuleCard nome="Unidade" rota="unidade" icon="map-o" />
+          <ModuleCard nome="Exame" rota="exame" icon="vial" />
+          <ModuleCard nome="Unidade" rota="unidade" icon="map-marked-alt" />
         </ContainerDouble>
         <ContainerDouble>
-          <ModuleCard nome="Agendamento" rota="agendamento" icon="calendar" />
+          <ModuleCard nome="Agendamento" rota="agendamento" icon="calendar-alt" />
         </ContainerDouble>
       </Container>
     </>
