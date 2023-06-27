@@ -3,7 +3,9 @@ import { Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 import Container from '../../components/ContainerMain';
+import ContainerDouble from '../../components/ContainerDouble';
 import Header from '../../components/Header';
+import ModuleCard from '../../components/ModuleCard';
 
 // import Logo from "../../assets/logo_workers_secondary.svg";
 
@@ -14,7 +16,19 @@ export default function Inicial() {
     <>
       <Header nome="Inicial" />
       <Container>
-        <Text>{`Olá, ${login}`}</Text>
+        <Text style={{
+          width: '100%', color: 'white', justifyContent: 'flex-start', fontSize: 16,
+        }}
+        >
+          {`Olá, ${login}`}
+        </Text>
+        <ContainerDouble>
+          <ModuleCard nome="Exame" rota="exame" icon="flask" />
+          <ModuleCard nome="Unidade" rota="unidade" icon="map-o" />
+        </ContainerDouble>
+        <ContainerDouble>
+          <ModuleCard nome="Agendamento" rota="agendamento" icon="calendar" />
+        </ContainerDouble>
       </Container>
     </>
   );

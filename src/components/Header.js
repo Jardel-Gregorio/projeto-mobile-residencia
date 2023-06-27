@@ -35,9 +35,11 @@ export default function Header({ nome }) {
   const navigation = useNavigation();
 
   function voltar() {
-    if (nome !== 'Inicial') {
-      navigation.goBack();
-    }
+    navigation.goBack();
+  }
+
+  function logout() {
+    navigation.navigate('login');
   }
 
   return (
@@ -49,7 +51,15 @@ export default function Header({ nome }) {
           </TouchableOpacity>
         ) : <Text style={styles.textHeader}>      </Text>}
       <Text style={styles.textHeader}>{nome}</Text>
-      <Text style={styles.textHeader}>      </Text>
+      {(nome === 'Inicial')
+        ? (
+          <TouchableOpacity
+            style={styles.btnVoltar && { paddingRight: 8 }}
+            onPress={() => logout()}
+          >
+            <Feather style={styles.iconHeader} name="log-out" size={30} />
+          </TouchableOpacity>
+        ) : <Text style={styles.textHeader}>      </Text>}
     </View>
   );
 }

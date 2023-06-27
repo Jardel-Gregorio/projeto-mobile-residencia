@@ -24,6 +24,8 @@ export default function Login({ navigation }) {
     const user = await login(usuario, senha);
 
     if (user) {
+      setUsuario('');
+      setSenha('');
       return navigation.navigate('inicial', { user });
     }
 
