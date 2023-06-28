@@ -1,78 +1,55 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import {  VStack, Heading, Icon } from  'native-base';
-import { FontAwesome } from '@expo/vector-icons';
 
-import Logo from '../../assets/logo_workers_primary.svg';
+import Button from '../../components/Button';
+import Container from '../../components/ContainerMain';
+import Input from '../../components/Input';
+import Title from '../../components/Tittle';
+
+// import Logo from '../../assets/logo_workers_primary.svg';
 
 import { useAuth } from '../../Hooks/useAuth';
 
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+export default function Login({ navigation }) {
+  const { login } = useAuth();
 
-export function Login() {
-    const { loading, login } = useAuth();
+  const [usuario, setUsuario] = useState('');
+  const [senha, setSenha] = useState('');
 
-    const [ usuario, setUsuario ] = useState<string>('');
-    const [ senha, setSenha ] = useState<string>('');
-
-    async function fazLogin() {
-        if (!usuario || !senha) {
-            return Alert.alert('Entrar', 'Informe usuário e senha.');
-        }
-
-        const response = await login(usuario, senha);
-
-        console.log(response.data);
-
-        if (usuario === 'MOURA') {
-            return Alert.alert('Entrar', 'Não é permitido a entrada de molezinha nesse aplicativo.');
-        } else {
-            Alert.alert('ENTRAR', `Usuário ou senha inválidos. ${usuario}`);
-        }
+  async function fazLogin() {
+    if (!usuario || !senha) {
+      return Alert.alert('Entrar', 'Informe usuário e senha.');
     }
-    
-    return (
-        <VStack 
-            flex={1} 
-            alignItems="center" 
-            bg={"gray.600"} 
-            px={8} 
-            pt={24}
-        >
-            <Logo />
 
-            <Heading 
-                color="gray.100"
-                fontSize="xl"
-                mt={20}
-                mb={6}
-            >
-                Acesse sua conta
-            </Heading>
+    const user = await login(usuario, senha);
 
-            <Input 
-                mb={4}
-                placeholder="Usuário"
-                InputLeftElement={<Icon as={<FontAwesome name="user"/>} ml={4} />}
-                value={usuario}
-                onChangeText={(text) => setUsuario(text.toUpperCase())}
-            />
+    if (user) {
+      setUsuario('');
+      setSenha('');
+      return navigation.navigate('inicial', { user });
+    }
 
-            <Input 
-                mb={8}
-                placeholder="Senha"
-                InputLeftElement={<Icon as={<FontAwesome name="key" />} ml={4} />}
-                secureTextEntry
-                onChangeText={setSenha}
-            />
+    return Alert.alert('ENTRAR', 'Usuário ou senha inválidos.');
+  }
 
-            <Button 
-                title="Entrar" 
-                w="full"
-                isLoading={loading}
-                onPress={fazLogin}
-            />
-        </VStack>
-    )
+  return (
+    <Container pt={100}>
+      {/* <Logo /> */}
+      <Title text="Acesse sua conta" />
+      <Input
+        title="Login"
+        placeholder="Digite seu login"
+        text={usuario}
+        setText={setUsuario}
+      />
+      <Input
+        password
+        title="Senha"
+        placeholder="Digite sua senha"
+        text={senha}
+        setText={setSenha}
+      />
+      <Button title="Entrar" acao={() => fazLogin()} />
+    </Container>
+  );
 }

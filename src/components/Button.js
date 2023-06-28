@@ -1,18 +1,33 @@
-import { Button as ButtonNativeBase, Heading } from 'native-base';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export function Button({title, ...rest}) {
+const styles = StyleSheet.create({
+  button: {
+    width: '90%',
+    backgroundColor: 'mediumseagreen',
+    borderRadius: 8,
+    marginVertical: 16,
+  },
+  text: {
+    textAlign: 'center',
+    paddingVertical: 8,
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
+
+export default function Button(props) {
+  const {
+    title,
+    acao,
+  } = props;
+
   return (
-    <ButtonNativeBase
-        bg="primary.700"
-        h={14}
-        fontSize="sm"
-        rounded="sm"
-        _pressed={{ bg: "primary.500" }}
-        {...rest}
-    >
-        <Heading color="white" fontSize="sm">
-            {title}
-        </Heading>
-    </ ButtonNativeBase>
-  );>
+    <TouchableOpacity style={styles.button} onPress={acao}>
+      <Text style={styles.text}>
+        {title}
+      </Text>
+    </TouchableOpacity>
+  );
 }
